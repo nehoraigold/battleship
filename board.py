@@ -18,7 +18,7 @@ class Board():
         return board
 
     def mark_as_guessed(self, coordinate):
-        self.board[coordinate[0]][coordinate[1]] = "X"
+        self.board[coordinate.row][coordinate.column] = "X"
 
     def print(self):
         result = ""

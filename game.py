@@ -1,11 +1,12 @@
 from settings import Settings
 from player import Player
 from board import Board
-import utils
 
 class Game():
     def __init__(self):
         self.introduce()
+        self.YES_RESPONSES = ["y", "Y", "yes", "YES", "Yes"]
+        self.NO_RESPONSES = ["n", "N", "no", "NO", "No"]
         self.settings = Settings()
         self.board = Board(self.settings.board_size)
         self.opponent = Player(self.settings.opponent_is_computer)
@@ -36,15 +37,15 @@ class Game():
                 self.board.mark_as_guessed(guess)
             guess = self.opponent.get_guess(self.board.size)
             if self.player.is_battleship_location(guess):
-                print("I guessed {}, and sank your battleship! Game over.".format(utils.convert_coordinate_to_string(guess)))
+                print("I guessed {}, and sank your battleship! Game over.".format(str(guess)))
                 return
             else:
-                print("{0}! I guessed {1} and missed.\n".format(self.opponent.get_reaction(), utils.convert_coordinate_to_string(guess)))
+                print("{0}! I guessed {1} and missed.\n".format(self.opponent.get_reaction(), str(guess)))
             self.turn_number += 1
     
     def play_again(self):
         keep_playing = input("Would you like to play again? ")
-        while keep_playing not in utils.YES_RESPONSES and keep_playing not in utils.NO_RESPONSES:
+        while keep_playing not in self.YES_RESPONSES and keep_playing not in self.NO_RESPONSES:
             keep_playing = input("Didn't quite catch that. Would you like to play again? ")
-        return keep_playing in utils.YES_RESPONSES
+        return keep_playing in self.YES_RESPONSES
         
